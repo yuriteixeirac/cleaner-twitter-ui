@@ -5,6 +5,10 @@
 
   "description": "Cleanse unnecessary twitter interface elements.",
 
+  "icons": {
+    "16": "assets/image.png"
+  },
+
   "content_scripts": [
     {
       "matches": ["*://x.com/*"],

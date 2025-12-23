@@ -1,53 +1,100 @@
-function getHeaderElement() {
-    return document.querySelector("header");
+const getMainTab = () => {
+    let navTab = document.querySelector('header');
+    let mainTab = document.querySelector('[data-testid*="primaryColumn"]');
+
+    return [navTab, mainTab];
 }
 
-function getNavElement() {
-    let element = document.querySelector('header > div > div > div');
-    return element.firstChild.childNodes[1].lastChild.childNodes;
-}
+const getFloatingButtons = () => {
+    let grokDrawer = document.querySelector('[data-testid*="GrokDrawer"]');
+    let chatDrawer = document.querySelector('[data-testid*="chat-drawer-root"]');
 
-function getMainElement() {
-    return document.querySelector('main > div > div > div');
-}
-
-function getFloatingButtons() {
-    let element = document.getElementById('layers');
-    return element.firstChild.childNodes;
-}
-
-function getTweetButton() {
-    return document.querySelector("header > div > div > div > div").lastChild
-}
-
-// Removing useless nav buttons
-const nav = getNavElement();
-const buttonsToHide = ['Follow', 'Grok'];
-
-nav.forEach((anchor) => {
-    if (buttonsToHide.includes(anchor.getAttribute('aria-label'))) {
-        anchor.style.display = 'none';
+    if (grokDrawer && chatDrawer) {
+        return [grokDrawer, chatDrawer];
     }
-})
+}
 
-// Hiding side tab (
-// Premium subcription, 
-// what's happening, who to follow and terms and conditions)
-const sideTab = getMainElement().lastChild
-sideTab.style.display = 'none';
+const getTweetButton = () => {
+    let element = document.querySelector("[data-testid*=SideNav_NewTweet_Button]");
+    if (element != null) {
+        return element.parentElement;
+    }
+}
 
-// Removing Grok and DMs floating buttons
-const floatingButtons = getFloatingButtons();
-floatingButtons.forEach((node) => {
-    node.style.display = 'none';
-})
+const getAccountButton = () => {
+    let element = document.querySelector('[data-testid*="SideNav_AccountSwitcher_Button"]');
+    if (element != null) {
+        return element.lastChild;
+    }
+}
 
-// Pushing the remaining screen to the side a little
-const tabs = [getHeaderElement(), getMainElement()]
-tabs.forEach((tab) => {
-    tab.style.position = 'relative';
-    tab.style.left = '10%';
-})
+const getPremiumButton = () => {
+    let premiumButton = document.querySelector('[data-testid*="UserName"]')
+    if (premiumButton) {
+        return premiumButton.lastChild;
+    }
+}
 
-const tweetButton = getTweetButton();
-tweetButton.style.maxWidth = '85%';
+
+const cleanUp = () => {
+    const ariaLabels = ['Grok', 'Follow']
+    ariaLabels.forEach((label) => {
+        let element = document.querySelector(`[aria-label*="${label}"]`);
+        if (element) element.style.display = 'none';
+    });
+    
+    let rightSideCol = document.querySelector('[data-testid*="sidebarColumn"]')
+    if (rightSideCol) {
+        rightSideCol.style.display = 'none';
+    }
+    
+    const floatingButtons = getFloatingButtons();
+    if (floatingButtons) {
+        floatingButtons.forEach((node) => {
+            node.style.display = 'none';
+        })
+    }
+    
+    const accountButton = getAccountButton();
+    if (accountButton) {
+        accountButton.style.display = 'none';
+    }
+    
+    const premiumButton = getPremiumButton();
+    if (premiumButton != null) {
+        premiumButton.style.display = 'none';
+    }
+    
+    const tabs = getMainTab();
+    tabs.filter(Boolean).forEach((tab) => {
+        tab.style.position = 'relative';
+        tab.style.left = '10%';
+    })
+    
+    const tweetButton = getTweetButton();
+    if (tweetButton) {
+        tweetButton.style.maxWidth = '85%';
+    }
+}
+
+const unchangedViews = [
+    "/i/chat/",
+    "/messages/"
+]
+
+const reapply = () => {
+    var currentRoute = window.location.pathname;
+    
+    var shouldApplyChanges = true;
+    unchangedViews.forEach((route) => {
+        if (currentRoute.startsWith(route)) {
+            shouldApplyChanges = false;
+        };
+    });
+
+    if (shouldApplyChanges) {
+        cleanUp();
+    }
+};
+
+setInterval(reapply, 1000);
