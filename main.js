@@ -1,11 +1,11 @@
-const getMainTab = () => {
+function getMainTab() {
     let navTab = document.querySelector('header');
     let mainTab = document.querySelector('[data-testid*="primaryColumn"]');
 
     return [navTab, mainTab];
 }
 
-const getFloatingButtons = () => {
+function getFloatingButtons() {
     let grokDrawer = document.querySelector('[data-testid*="GrokDrawer"]');
     let chatDrawer = document.querySelector('[data-testid*="chat-drawer-root"]');
 
@@ -14,27 +14,26 @@ const getFloatingButtons = () => {
     }
 }
 
-const getTweetButton = () => {
+function getTweetButton() {
     let element = document.querySelector("[data-testid*=SideNav_NewTweet_Button]");
     if (element != null) {
         return element.parentElement;
     }
 }
 
-const getAccountButton = () => {
+function getAccountButton() {
     let element = document.querySelector('[data-testid*="SideNav_AccountSwitcher_Button"]');
     if (element != null) {
         return element.lastChild;
     }
 }
 
-const getPremiumButton = () => {
+function getPremiumButton() {
     let premiumButton = document.querySelector('[data-testid*="UserName"]')
     if (premiumButton) {
         return premiumButton.lastChild;
     }
 }
-
 
 const cleanUp = () => {
     const ariaLabels = ['Grok', 'Follow']
@@ -79,7 +78,8 @@ const cleanUp = () => {
 
 const unchangedViews = [
     "/i/chat/",
-    "/messages/"
+    "/messages/",
+    "/settings/"
 ]
 
 const reapply = () => {
