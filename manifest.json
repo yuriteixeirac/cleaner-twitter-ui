@@ -6,7 +6,7 @@
   "description": "Cleanse unnecessary twitter interface elements.",
 
   "icons": {
-    "16": "assets/image.png"
+    "16": "assets/cleaner-twitter.png"
   },
 
   "content_scripts": [
