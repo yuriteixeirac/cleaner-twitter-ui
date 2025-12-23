@@ -10,3 +10,4 @@ It is Mozilla Firefox only and was thought and made for personal use, not tested
 
 ## To do
 - Remove all Grok "explain this post" buttons on tweets.
+- Fix scrolling on chats.
