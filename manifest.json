@@ -3,10 +3,10 @@
   "name": "cleaner-twitter-ui",
   "version": "1.0",
 
-  "description": "Cleanse unnecessary twitter interface elements.",
+  "description": "Cleans unnecessary twitter interface elements.",
 
   "icons": {
-    "16": "assets/cleaner-twitter.png"
+    "48": "assets/cleaner-twitter.png"
   },
 
   "content_scripts": [
